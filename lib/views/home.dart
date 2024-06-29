@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   // ambil data
-  late List<Resep> _resep;
+  List<Resep> _resep = [];
   bool _isLoading = true;
 
   @override
@@ -23,12 +23,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> getResep() async {
-      
     _resep = await ResepApi.getResep();
-    if(mounted){
-    setState(() {
-      _isLoading = false;
-    });
+
+    if (mounted) {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -57,23 +57,24 @@ class _HomePageState extends State<HomePage> {
                       rating: _resep[index].rating.toString(),
                       thumbnailUrl: _resep[index].images,
                       videoUrl: _resep[index].videoUrl,
-                      ),
-                      onTap: () => {
-                        Navigator.push(
-                          context, MaterialPageRoute(builder: 
-                            (context) => DetailResep(
-                              name: _resep[index].name,
-                              totalTime: _resep[index].totalTime,
-                              rating: _resep[index].rating.toString(),
-                              images: _resep[index].images,
-                              description: _resep[index].description,
-                              videoUrl: _resep[index].videoUrl,
-                              instructions: _resep[index].instructions,
-                              sections: _resep[index].sections,
-                              ),
-                            ),)
-                      },
-                    
+                    ),
+                    onTap: () => {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailResep(
+                            name: _resep[index].name,
+                            totalTime: _resep[index].totalTime,
+                            rating: _resep[index].rating.toString(),
+                            images: _resep[index].images,
+                            description: _resep[index].description,
+                            videoUrl: _resep[index].videoUrl,
+                            instructions: _resep[index].instructions,
+                            sections: _resep[index].sections,
+                          ),
+                        ),
+                      )
+                    },
                   );
                 },
               ));
